@@ -45,31 +45,45 @@ export async function POST(req: NextRequest){
         const hashedPassword = await bcrypt.hash(password, 10);
         
         const digitCode = Math.floor((Math.random()*9000)+1000);
-       
-        const newUser = await prisma.users.create({
-            data: {
-                email, 
-                username,
-                password: hashedPassword,
-                isVerified: false,
-                otpCode: digitCode,
-                expiryDate: new Date(Date.now() + 3600000)
-            },
-        })
+
+
         
-         await SendMailer({
-            email: email,
-            username: username,
-            otpCode: digitCode,
+        const createdUser = await prisma.$transaction( async (prisma) => {
+        //   const expDate   = Date.now()+3600000;
+        //   console.log(expDate);
+          
+            // create user in db
+            const newUser = await prisma.users.create({
+                data: {
+                    email, 
+                    username,
+                    password: hashedPassword,
+                    isVerified: false,
+                    otpCode: digitCode,
+                    expiryDate: new Date(Date.now() + 3600000)
+                },
+            });
+             
+            const emailRes = await SendMailer({
+                email: email,
+                username: username,
+                otpCode: digitCode,
+            });
+        
+            if (!emailRes) {
+                throw new Error("Email failed to send"); 
+            }
+
+            return newUser;
         })
-
-
        
+
+        
         return NextResponse.json(
             {
               success: true,
-              message: " Please verify your email by OTP",
-              user: newUser
+              message: "Account created successfully. Please verify your email using the OTP sent to your email address.",
+              user: createdUser,
             }, 
             {status: 201}
         )
@@ -78,7 +92,7 @@ export async function POST(req: NextRequest){
     } catch (error: any) {
         console.error("❌ Signup error:", error);
         return NextResponse.json(
-          { success: false, message: "Internal Server Error" },
+          { success: false, message: "Registration Failed: Internal Server Error" },
           { status: 500 }
         );
       
