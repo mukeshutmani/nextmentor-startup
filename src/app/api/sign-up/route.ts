@@ -49,32 +49,36 @@ export async function POST(req: NextRequest){
 
         
         const createdUser = await prisma.$transaction( async (prisma) => {
-        //   const expDate   = Date.now()+3600000;
-        //   console.log(expDate);
-          
-            // create user in db
-            const newUser = await prisma.users.create({
-                data: {
-                    email, 
-                    username,
-                    password: hashedPassword,
-                    isVerified: false,
-                    otpCode: digitCode,
-                    expiryDate: new Date(Date.now() + 3600000)
-                },
-            });
-             
-            const emailRes = await SendMailer({
-                email: email,
-                username: username,
-                otpCode: digitCode,
-            });
         
-            if (!emailRes) {
-                throw new Error("Email failed to send"); 
-            }
+            // create user in db
+         try {
+               const newUser = await prisma.users.create({
+                   data: {
+                       email, 
+                       username,
+                       password: hashedPassword,
+                       isVerified: false,
+                       otpCode: digitCode,
+                       expiryDate: new Date(Date.now() + 120000)
+                   },
+               });
+                
+               const emailRes = await SendMailer({
+                   email: email,
+                   username: username,
+                   otpCode: digitCode,
+               });
+           
+               if (!emailRes) {
+                   throw new Error("Email failed to send"); 
+               }
+   
+               return newUser;
 
-            return newUser;
+         } catch (error:any) {
+             console.log("Transactions Error",error.message);
+             
+         }
         })
        
 

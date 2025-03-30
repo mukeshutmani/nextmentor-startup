@@ -15,12 +15,12 @@ datasource db {
 
 model users {
   id         String   @id @default(uuid()) // Unique UUID for better security
-  email      String   @unique // Unique email
-  username   String   @unique // Unique username
-  password   String   // Hashed password will be stored
+  email      String?   @unique // Unique email
+  username   String?   @unique // Unique username
+  password   String?   // Hashed password will be stored
   isVerified Boolean  @default(false)
-  otpCode        Int
-  expiryDate DateTime  @default(now())
+  otpCode        Int?
+  expiryDate DateTime?  
   createdAt  DateTime @default(now()) // Auto-generated timestamp
   updatedAt  DateTime @updatedAt // Auto-updated on every change
 

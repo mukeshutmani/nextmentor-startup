@@ -3,6 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 
 
+
 export async function POST(req: NextRequest){
     try {
 
@@ -44,10 +45,10 @@ export async function POST(req: NextRequest){
 
       const updated = await prisma.users.update({
            where: {email},
-           data: {isVerified: true, otpCode: undefined , expiryDate: undefined}
+           data: {isVerified: true, otpCode: {set: null}, expiryDate: {set: null}}
        })
 
-       console.log(updated);
+    //   console.log(updated);
        
 
 

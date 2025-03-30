@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-export const Timer = (duration: number ) => {
+export const Timer = ({duration}: {duration: number}) => {
 
   const [time, setTime] = useState(0) 
 

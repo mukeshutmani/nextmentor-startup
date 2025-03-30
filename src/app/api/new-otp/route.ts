@@ -2,7 +2,10 @@ import { SendMailer } from "@/helper/sendMailer";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+
+
 export async function POST(req: NextRequest) {
+
   try {
     const { email } = await req.json();
 
@@ -28,6 +31,17 @@ export async function POST(req: NextRequest) {
       );
     }
     
+   // already verified dont need otp
+   if(emailExist.isVerified === true){
+    return NextResponse.json(
+      {
+        success: false,
+        message: "User Already Verified",
+      },
+      { status: 400 }
+    );
+   }
+
     // if OTP expired you can request after five minutes of expiry 
     const newDate: any = new Date()
     const lastOtpSentAt: any = emailExist.expiryDate;
@@ -42,6 +56,7 @@ export async function POST(req: NextRequest) {
     }
   
 
+    
     const digitCode = Math.floor(Math.random() * 9000 + 1000);
     const expDate = new Date(Date.now() + 3600000);
 
