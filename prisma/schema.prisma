@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,17 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id         String   @id @default(uuid()) // Unique UUID for better security
-  email      String?   @unique // Unique email
-  username   String?   @unique // Unique username
-  password   String?   // Hashed password will be stored
-  isVerified Boolean  @default(false)
-  otpCode        Int?
-  expiryDate DateTime?  
-  createdAt  DateTime @default(now()) // Auto-generated timestamp
-  updatedAt  DateTime @updatedAt // Auto-updated on every change
+model User {
+  id         String?    @id @default(uuid())
+  email      String    @unique @db.VarChar(255)
+  username   String    @unique @db.VarChar(50)
+  password   String    @db.VarChar(255)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  expiryDate DateTime?
+  isVerified Boolean   @default(false)
+  otpCode    Int?
+  otpExpiry  DateTime?
+  image      String?   @db.VarChar(512)
+  resetToken String?
+  resetTokenExpiry DateTime?
+  
+  accounts Account[]
+  sessions Session[]
+}
 
-  @@index([email])
-  @@index([username])
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.Text
+  session_state     String?
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  ipAddress    String?
+  userAgent    String?
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

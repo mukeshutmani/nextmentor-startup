@@ -10,7 +10,7 @@ export async function POST(req: NextRequest){
        const {email, otp} = await req.json();
 
        // check if user exists
-       const existingUser = await prisma.users.findUnique({where: {email}});
+       const existingUser = await prisma.user.findUnique({where: {email}});
 
        if(!existingUser){
             return NextResponse.json({
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest){
         {status: 404})
        }
 
-      const updated = await prisma.users.update({
+      const updated = await prisma.user.update({
            where: {email},
            data: {isVerified: true, otpCode: {set: null}, expiryDate: {set: null}}
        })

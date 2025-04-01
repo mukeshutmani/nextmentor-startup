@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const emailExist = await prisma.users.findUnique({ where: { email } });
+    const emailExist = await prisma.user.findUnique({ where: { email } });
 
     if (!emailExist) {
       return NextResponse.json(
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     const expDate = new Date(Date.now() + 3600000);
 
     const userUpdated = await prisma.$transaction(async (prisma) => {
-      const userUpdatedWithNewOTP = await prisma.users.update({
+      const userUpdatedWithNewOTP = await prisma.user.update({
         where: { email },
         data: { otpCode: digitCode, expiryDate: expDate },
       });
