@@ -8,7 +8,6 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 
 
-
 export const authOptions:NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     
@@ -19,10 +18,10 @@ export const authOptions:NextAuthOptions = {
             profile(profile) {
               console.log("Google Profile: ", profile);
               return {
-                id: profile.sub, // Google ka unique ID
-                name: profile.name, // Full Name
-                email: profile.email, // Email
-                image: profile.picture, // Profile Picture
+                id: profile.sub, 
+                name: profile.name, 
+                email: profile.email, 
+                image: profile.picture, 
               }},
               authorization: {
                 params: {
@@ -82,7 +81,7 @@ export const authOptions:NextAuthOptions = {
                  console.log(user);
                  
                  
-
+          
                  if (!user) {
                     throw new Error("No user found with this email")
                  }
@@ -100,11 +99,8 @@ export const authOptions:NextAuthOptions = {
                 }
                
                 // console.log("user printed",user);
-               
-
                 return user;
-                
-
+              
                 } catch (error: any) {
                    console.error("Login error:", error);
                    throw new Error("Something went wrong");
@@ -134,7 +130,7 @@ export const authOptions:NextAuthOptions = {
                    })
 
                    if(existed){
-                        throw new Error("Account already exists with a different method.")
+                        return true
                    } 
                    
                   
@@ -143,50 +139,32 @@ export const authOptions:NextAuthOptions = {
                     data: { 
                       id: String(user.id),
                       email: user.email as string,
-                      username: user.name as string,
+                      username: user.name as string,  
                       isVerified: true,
-                      password: "" // Provide a default or hashed password value
                     }
                   })
-
-                  console.log("Databse user", newUser);
-                  
-                  
-
-                  const newuser = await prisma.account.create({
-                    data: {
-                       userId: String(user.id) as string,
-                       provider: account.provider as string,
-                       providerAccountId: account.providerAccountId as string,
-                       type: "oauth" // Add the required 'type' field
-                    }
-                  });
-
-
-                  
-     
-                   console.log("New User 😋😋😋😋😋", newuser);
+ 
                 }
                 
-              }
+              } 
              return true
               
-            } catch (error: any) {
-              console.log(error.message);
-              
-              return false
+            } catch (error: any) {  
+              console.log(error.message);  
+              return false 
             }
             // For OAuth providers, ensure user is verified
           },
-
+            
   
-         async jwt({ token, user }) {
+         async jwt({ token, user, account }) {
             if (user && user.id) {
               token.id = user.id;
               token.isVerified = user.isVerified ?? true
               token.email = user.email;
+              token.accessToken = account?.access_token
             }
-            console.log("Tokens",token);
+            // console.log("Tokens",token);
             
             return token;
           },
@@ -195,10 +173,10 @@ export const authOptions:NextAuthOptions = {
             if (token) {
               session.user.id = token.id;
               session.user.email = token.email;
-              session.user.isVerified = token.isVerified
+              session.user.isVerified = token.isVerified ?? true
             } 
 
-            console.log("Sessions", session);
+            // console.log("Sessions", session);
             
             return session;
           },

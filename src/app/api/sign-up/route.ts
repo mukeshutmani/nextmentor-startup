@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import { signUpSchema } from "@/validators/signup-zod";
 import { SendMailer } from "@/helper/sendMailer";
 
-
 export async function POST(req: NextRequest){
 
     try {
@@ -59,7 +58,7 @@ export async function POST(req: NextRequest){
                        password: hashedPassword,
                        isVerified: false,
                        otpCode: digitCode,
-                       expiryDate: new Date(Date.now() + 120000)
+                       otpExpiry: new Date(Date.now() + 120000)
                    },
                });
                 

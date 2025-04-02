@@ -4,7 +4,6 @@ import { signIn, signOut } from "next-auth/react";
 
 const page = () => {
 
-      
     const onSubmit = async () => {
 
        const result =  await  signIn('credentials',
