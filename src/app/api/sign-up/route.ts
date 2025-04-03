@@ -10,7 +10,7 @@ export async function POST(req: NextRequest){
 
         const body = await req.json();
         // zod validation
-        console.log(body);
+        // console.log(body);
         
         const result = signUpSchema.safeParse(body)
         if(!result.success){
@@ -26,19 +26,24 @@ export async function POST(req: NextRequest){
         }
 
         const { email, username, password } = result.data;
-
+       
         const existingUser = await prisma.user.findUnique({ where: {email}});
-         
-        // check if email exists
-        if(existingUser){
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Email already exists",
-                },
-                {status: 409}
-            )
+          
+        if(existingUser?.email){
+            const account = await prisma.account.findFirst({where : {userId: existingUser.id}})
+            if(account && account.provider){
+                  await prisma.user.delete({where: {email}})
+            } else {
+                return NextResponse.json(
+                    {
+                        success: false,
+                        message: "Email already exists",
+                    },
+                    {status: 409}
+                )
+            }
         }
+
 
         // hash password 
         const hashedPassword = await bcrypt.hash(password, 10);

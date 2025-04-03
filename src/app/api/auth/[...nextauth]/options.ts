@@ -16,7 +16,7 @@ export const authOptions:NextAuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
             profile(profile) {
-              console.log("Google Profile: ", profile);
+              // console.log("Google Profile: ", profile);
               return {
                 id: profile.sub, 
                 name: profile.name, 
@@ -38,7 +38,7 @@ export const authOptions:NextAuthOptions = {
             clientId: process.env.GITHUB_CLIENT_ID!,
             clientSecret: process.env.GITHUB_CLIENT_SECRET!,
             profile(profile){
-              console.log("Github", profile);
+              // console.log("Github", profile);
               return {
                 id: profile.id,
                 name: profile.name,
@@ -78,7 +78,7 @@ export const authOptions:NextAuthOptions = {
                   // check user exists 
                  const user = await prisma.user.findUnique({where: {email: credentials.email}})
                  
-                 console.log(user);
+                //  console.log(user);
                  
                  
           

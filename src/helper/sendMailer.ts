@@ -3,7 +3,9 @@ import nodemailer from "nodemailer"
 export const SendMailer = async({
     email,
     username,
-    otpCode,
+    otpCode = null,
+    link = null,
+    
 }: any) => {
      try {
         const transporter = nodemailer.createTransport({
@@ -28,13 +30,15 @@ export const SendMailer = async({
                 <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd;">
                     <h2 style="color: #333;">Hello, ${username} 👋</h2>
                     <p>Your One-Time Password (OTP) is:</p>
-                    <div style="font-size: 24px; font-weight: bold; background: #f4f4f4; padding: 10px; display: inline-block;">
+                   ${ otpCode && `<div style="font-size: 24px; font-weight: bold; background: #f4f4f4;  padding: 10px; display: inline-block;">
                         ${otpCode}
                          
-                    </div>
-                    <p>This OTP is valid for 1 Hour. Do not share it with anyone.</p>
+                    </div>`}
+                    ${link && `<p> Click: <a href="${link}">here</a> to reset your password. This link expires in 15 minutes </p>`}
+                    ${otpCode && `<p>This OTP is valid for 1 Hour. Do not share it with anyone.</p>` }
+                    
                     <hr/>
-                    <small>If you did not request this OTP, please ignore this email.</small>
+                    <small>If you did not request this OTP or reset password, please ignore this email.</small>
                 </div>
               `
           }

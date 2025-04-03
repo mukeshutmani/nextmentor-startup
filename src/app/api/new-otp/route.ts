@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     // if OTP expired you can request after five minutes of expiry 
     const newDate: any = new Date()
-    const lastOtpSentAt: any = emailExist.expiryDate;
+    const lastOtpSentAt: any = emailExist.otpExpiry;
     if (lastOtpSentAt && (newDate - lastOtpSentAt.getTime() < 300000)) {
       return NextResponse.json(
         {
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     const userUpdated = await prisma.$transaction(async (prisma) => {
       const userUpdatedWithNewOTP = await prisma.user.update({
         where: { email },
-        data: { otpCode: digitCode, expiryDate: expDate },
+        data: { otpCode: digitCode, otpExpiry: expDate },
       });
 
       const emailRes = await SendMailer({

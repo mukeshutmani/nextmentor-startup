@@ -35,7 +35,7 @@ export async function POST(req: NextRequest){
        // check if otp is expired...
        const currentTime = new Date();
 
-       if (existingUser.expiryDate && existingUser.expiryDate < currentTime){
+       if (existingUser.otpExpiry && existingUser.otpExpiry < currentTime){
         return NextResponse.json({
             success: false,
             message: "OTP has expired. Please request a new one."
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest){
 
       const updated = await prisma.user.update({
            where: {email},
-           data: {isVerified: true, otpCode: {set: null}, expiryDate: {set: null}}
+           data: {isVerified: true, otpCode: {set: null}, otpExpiry: {set: null}}
        })
 
     //   console.log(updated);

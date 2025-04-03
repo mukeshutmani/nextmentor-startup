@@ -2,14 +2,16 @@ import { prisma } from "@/lib/prisma";
 import crypto from 'crypto';
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
+import { SendMailer } from "@/helper/sendMailer";
 
 
-export async function Post(req: NextRequest){
+export async function POST(req: NextRequest){
 
      try {
 
          const {email} = await req.json();
-
+         console.log(email);
+         
          if(!email){
             return NextResponse.json({
                 succees: false,
@@ -36,7 +38,19 @@ export async function Post(req: NextRequest){
                 },
                 {status: 400}
             )}
-         
+          
+
+        // check is user verified?
+        if(!userExists.isVerified){
+            return NextResponse.json({
+                succees: false,
+                message: "User is not verified. first verfy your email",
+            },
+            {status: 400}
+        )}
+
+
+
         // reset token 
         const resetToken = crypto.randomBytes(32).toString("hex");
         const hashedToken = (await bcrypt.hash(resetToken, 10)).toString();
@@ -53,15 +67,33 @@ export async function Post(req: NextRequest){
                create: {userId: userExists.id, token: hashedToken, expiresAt: expiryTokenTime}
         })
 
-
-        // send reset link via email
+        const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}&email=${email}`
+         
+       const emailsent = await SendMailer({email, username: userExists.username, link: resetUrl })   
        
+       if(!emailsent){
+        return NextResponse.json({
+            succees: false,
+            message: "something went wrong while sending verification email",
+        },
+        {status: 400}
+       )}
 
+       return NextResponse.json({
+        succees: true,
+        message: "Password reset email sent successfully",
+           },
+           {status: 200}
+        )
 
-
-                
-
-     } catch (error) {
-        
+     } catch (error: any) {
+        console.log(error.message);
+        return NextResponse.json({
+            succees: false,
+            message: "password reset error",
+               },
+               {status: 500}
+            )
+         
      }
 }
