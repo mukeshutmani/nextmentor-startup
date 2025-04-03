@@ -23,6 +23,7 @@ model User {
   
   accounts Account[]
   sessions Session[]
+  tokens PasswordResetToken[]
 }
 
 model Account {
@@ -52,4 +53,14 @@ model Session {
   ipAddress    String?
   userAgent    String?
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+
+model PasswordResetToken {
+  id          String    @id @default(uuid())
+  userId      String    
+  token       String
+  expiresAt   DateTime
+  user        User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
