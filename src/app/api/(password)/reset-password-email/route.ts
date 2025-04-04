@@ -84,15 +84,15 @@ export async function POST(req: NextRequest){
 
         const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${hashedToken}&email=${email}`
          
-    //    const emailsent = await SendMailer({email, username: userExists.username, link: resetUrl })   
+       const emailsent = await SendMailer({email, username: userExists.username, link: resetUrl })   
        
-    //    if(!emailsent){
-    //     return NextResponse.json({
-    //         succees: false,
-    //         message: "something went wrong while sending verification email",
-    //     },
-    //     {status: 400}
-    //    )}
+       if(!emailsent){
+        return NextResponse.json({
+            succees: false,
+            message: "something went wrong while sending verification email",
+        },
+        {status: 400}
+       )}
 
        return NextResponse.json({
         succees: true,
