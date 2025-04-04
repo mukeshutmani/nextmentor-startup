@@ -22,13 +22,28 @@ export async function POST(req: NextRequest){
 
         const userExists = await prisma.user.findUnique({where: {email}});
 
-            if(!userExists){
-                return NextResponse.json({
-                    succees: false,
-                    message: "user not found with given email",
-                },
-                {status: 404}
-            )}
+        if(!userExists){
+            return NextResponse.json({
+                succees: false,
+                message: "user not found with given email",
+            },
+            {status: 404}
+        )}
+
+       const passwordResetToken = await prisma.passwordResetToken.findFirst({where: {userId: userExists.id}})    
+    
+       const expiresAt = new Date(passwordResetToken?.expiresAt as Date)
+       const currentTime = new Date();
+
+       if( passwordResetToken && expiresAt.getTime() > currentTime.getTime()){
+        return NextResponse.json({
+            succees: false,
+            message: "Please wait 5 minute before requesting again.",
+               },
+               {status: 429}
+            )
+        }
+       
 
         const account = await prisma.account.findFirst({where: {userId: userExists.id}});
             if(account && account.provider){
@@ -69,15 +84,15 @@ export async function POST(req: NextRequest){
 
         const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${hashedToken}&email=${email}`
          
-       const emailsent = await SendMailer({email, username: userExists.username, link: resetUrl })   
+    //    const emailsent = await SendMailer({email, username: userExists.username, link: resetUrl })   
        
-       if(!emailsent){
-        return NextResponse.json({
-            succees: false,
-            message: "something went wrong while sending verification email",
-        },
-        {status: 400}
-       )}
+    //    if(!emailsent){
+    //     return NextResponse.json({
+    //         succees: false,
+    //         message: "something went wrong while sending verification email",
+    //     },
+    //     {status: 400}
+    //    )}
 
        return NextResponse.json({
         succees: true,
