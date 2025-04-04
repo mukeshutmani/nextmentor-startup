@@ -17,7 +17,7 @@ const page = () => {
             const response = await axios.post("/api/reset-password", {
                     token,
                     email,
-                    password: data.password
+                    newPassword: data.password
                   })
             console.log(response);
             alert("Password reset succesfully")

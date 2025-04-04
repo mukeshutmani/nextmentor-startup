@@ -67,7 +67,7 @@ export async function POST(req: NextRequest){
                create: {userId: userExists.id, token: hashedToken, expiresAt: expiryTokenTime}
         })
 
-        const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}&email=${email}`
+        const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${hashedToken}&email=${email}`
          
        const emailsent = await SendMailer({email, username: userExists.username, link: resetUrl })   
        

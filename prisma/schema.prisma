@@ -60,7 +60,7 @@ model Session {
 model PasswordResetToken {
   id          String    @id @default(uuid())
   userId      String    
-  token       String
+  token       String @unique
   expiresAt   DateTime
   user        User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
