@@ -30,6 +30,7 @@ export async function POST(req: NextRequest){
             {status: 404}
         )}
 
+        
        const passwordResetToken = await prisma.passwordResetToken.findFirst({where: {userId: userExists.id}})    
     
        const expiresAt = new Date(passwordResetToken?.expiresAt as Date)
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest){
             )}
           
 
+
         // check is user verified?
         if(!userExists.isVerified){
             return NextResponse.json({
@@ -63,7 +65,6 @@ export async function POST(req: NextRequest){
             },
             {status: 400}
         )}
-
 
 
         // reset token 
