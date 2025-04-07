@@ -24,8 +24,8 @@ model User {
   otpCode    Int?
   otpExpiry  DateTime?
   role       Role?      @default(LEARNER)
-  status:    Status?    @default(PENDING)
-  image      String?   @db.VarChar(255)
+  status    Status?    @default(PENDING)
+  image      String?    @db.VarChar(255)
 
   
   createdAt  DateTime  @default(now())
@@ -36,6 +36,7 @@ model User {
   tokens     PasswordResetToken[]
 
   mentor     Mentor[]
+  learner    Learner[]
 
 }
 
@@ -123,11 +124,11 @@ model Mentor {
 
     linkedInUrl       String?        @db.VarChar(255)
     xUrl              String?        @db.VarChar(255)
-
+    
     rating             Float?        @default(0.0)
     reviewCount        Int?          @default(0)
-
-
+     
+    
 
 
     createdAt          DateTime      @default(now())
@@ -137,7 +138,7 @@ model Mentor {
 
     @@index([email])
     @@index([userId])
-    @@index([university])
+    @@index([schoolName])
     @@index([guidefor])
     @@index([company])
  
@@ -168,7 +169,7 @@ model Learner {
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   
-  userId           String?
+  userId           String
   user             User @relation(fields:[userId], references: [id], onDelete: Cascade)
 
 

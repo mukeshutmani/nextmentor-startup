@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { signUpSchema } from "@/validators/signup-zod";
 import { SendMailer } from "@/helper/sendMailer";
-
+     
 export async function POST(req: NextRequest){
-
+         
     try {
-
+        
         const body = await req.json();
         // zod validation
         // console.log(body);
