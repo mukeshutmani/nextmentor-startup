@@ -7,8 +7,9 @@ export async function POST(req: NextRequest) {
 
      try {
 
-         const {name, email,  phonenumber, bio, country, schoolName, graduationYear, company, guidefor, readyForMentorship, skills, linkedInUrl, xUrl} = await req.json();
+        //  const {name, email,  phonenumber, bio, country, schoolName, graduationYear, company, guidefor, readyForMentorship, skills, linkedInUrl, xUrl} = await req.json();
          
+        const formData = req.formData()
 
          
 
