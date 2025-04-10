@@ -20,7 +20,7 @@ export const UploadOnCloudinary = async (localFilePath: string): Promise<string 
 
             const response =  await cloudinary.uploader.upload(localFilePath, {
                 resource_type: "auto",
-                folder: "nextmentor"
+                folder: 'nextmentor'
             })
 
             if(response.secure_url)  fs.unlinkSync(localFilePath)

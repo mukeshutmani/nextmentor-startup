@@ -14,7 +14,7 @@ export const MentorFormSchema = z.object({
     graduationYear: z.coerce.number(),
     company: z.string(),
     guidefor: z.string(),
-    readyForMentorship: z.enum(["yes", "no"]),
+    readyForMentorship: z.enum(["YES", "NO"]),
     skills: z.string().optional(),
     linkedInUrl: z.string().url().optional(),
     xUrl: z.string().url().optional()
