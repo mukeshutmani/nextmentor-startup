@@ -47,13 +47,11 @@ export async function POST(req: NextRequest) {
         
         if(!userExists){
               return NextResponse.json({
-                message: "user not found with this email please try again with your login email! something went wrong try again"
+                message: "user not found with this email please try again with your login email! "
               })
         }
 
-
-
-
+        
         const files = []
         const idCard = formData.get("idcardUrl") as File;
         const profileCard = formData.get("profileUrl") as File
@@ -91,36 +89,36 @@ export async function POST(req: NextRequest) {
 
 
 
-         console.log("Image urls", imageUrls);
+        //  console.log("Image urls", imageUrls);
          
-        //   let res = await prisma.mentor.create({
-        //       data: {
-        //           userId: userExists?.id,
-        //           name: result.data.name,
-        //           email: result.data.email,
-        //           bio: result.data.bio,
-        //           phonenumber: result.data.phonenumber,
-        //           company: result.data.company,
-        //           country: result.data.country,
-        //           graduationYear: result.data.graduationYear,
-        //           idcardUrl: imageUrls[0] || '',
-        //           profileUrl: imageUrls[1] || '',
-        //           guidefor: result.data.guidefor,
-        //           schoolName: result.data.schoolName,
-        //           readyForMentorship: "NO",
-        //           skills: result.data.skills,
-        //           linkedInUrl: result.data.linkedInUrl,
-        //           xUrl: result.data.xUrl,
-        //       }
-        // })
+          let res = await prisma.mentor.create({
+              data: {
+                  userId: userExists?.id,
+                  name: result.data.name,
+                  email: result.data.email,
+                  bio: result.data.bio,
+                  phonenumber: result.data.phonenumber,
+                  company: result.data.company,
+                  country: result.data.country,
+                  graduationYear: result.data.graduationYear,
+                  profileUrl: imageUrls[0] || '',
+                  idcardUrl: imageUrls[1] || '',
+                  guidefor: result.data.guidefor,
+                  schoolName: result.data.schoolName,
+                  readyForMentorship: "NO",
+                  skills: result.data.skills,
+                  linkedInUrl: result.data.linkedInUrl,
+                  xUrl: result.data.xUrl,
+              }
+        })
 
 
-        // if(!res) return console.log("Mentor is not created");
+        if(!res) return console.log("Mentor is not created");
 
         return NextResponse.json({
           success: true,
           message: "Mentor form Submitted Successfully",
-          // Data: res,     
+          Data: res,     
           },
         { status: 201 }
         )

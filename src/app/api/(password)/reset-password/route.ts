@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
         });
 
         await prisma.passwordResetToken.delete({ where: {token}})
-
+           
         
         return NextResponse.json({
             success: true,
