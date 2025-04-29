@@ -7,8 +7,6 @@ export const LearnerSchema = z.object({
     country: z.string(),
     educationLevel: z.string(),
     schoolName : z.string(),
-    schoolCardUrl: z.string(),
-    profileUrl: z.string(),
     mentorshipType: z.string(),
     bio: z.string(),
-}) 
+})

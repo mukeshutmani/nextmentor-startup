@@ -50,8 +50,6 @@ export async function POST(req: NextRequest){
 
     //   console.log(updated);
        
-
-
        return NextResponse.json({
             success: true,
             Message: "Email Verified Successfully"

@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { SaveFilesLocally } from "@/utils/saveFileLocally";
 import { LearnerSchema } from "@/validators/learner-zod";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
 import fs from 'fs'
 
 function formDataToObject(formData: FormData): Record < string, any > {
@@ -33,16 +32,29 @@ export async function POST(req: NextRequest) {
        if(!result.success){
          return NextResponse.json({
                error: result.error
-          })
+          },
+          {status: 401}
+        )
        }
 
       const {email} = data
       const userExists = await prisma.user.findUnique({where: {email}})
-
+      
       if(!userExists){
         return NextResponse.json({
             message: "user not found with this email please try again with your login email! "
-          })
+          },
+          {status: 404}
+        )
+      }
+
+      const learnerEmail =  await prisma.learner.findUnique({where: {email}});
+      if(learnerEmail ){
+        return NextResponse.json({
+          message: "Learner email already exists"
+        },
+        {status: 409}
+      )
       }
 
 

@@ -25,7 +25,7 @@ export async function POST(req: NextRequest){
         if(!userExists){
             return NextResponse.json({
                 succees: false,
-                message: "user not found with given email",
+                message: "User not found with given email",
             },
             {status: 404}
         )}

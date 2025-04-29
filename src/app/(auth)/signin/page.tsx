@@ -9,8 +9,8 @@ const page = () => {
        const result =  await  signIn('credentials',
          {
             redirect: false,
-            email: "aneelmeghwar666@gmail.com",
-            password:"123478"
+            email: "kumarmukesh789123@gmail.com",
+            password:"123456789"
          }
         )
         console.log("Success",result);
