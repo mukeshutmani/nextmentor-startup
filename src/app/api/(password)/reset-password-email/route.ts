@@ -78,7 +78,7 @@ export async function POST(req: NextRequest){
          })
 
         await prisma.passwordResetToken.upsert({
-               where: {id: tokenEntry?.id || "dummy-id"},
+               where: {id: tokenEntry?.id },
                update: {token: hashedToken, expiresAt: expiryTokenTime},
                create: {userId: userExists.id, token: hashedToken, expiresAt: expiryTokenTime}
         })

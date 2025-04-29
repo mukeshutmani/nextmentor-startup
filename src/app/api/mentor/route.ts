@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
         const formData = await req.formData()
         const data = formDataToObject(formData)
         const result = MentorFormSchema.safeParse(data)
-
+        
         if(!result.success){
           return NextResponse.json({
                 error: result.error
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         profileCard && files.push(profileCard)
         idCard && files.push(idCard)
 
-        console.log(`Idcard: ${idCard} and profileCard: ${profileCard}`);
+        // console.log(`Idcard: ${idCard} and profileCard: ${profileCard}`);
         
        
         const imageUrls: string[] = [];
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
           const {filePath} = await SaveFilesLocally(file)
           if(!filePath) return console.log("file path is required");
           
-          console.log("filePath", filePath);
+          // console.log("filePath", filePath);
           
           const cloudinaryUrl =  await UploadOnCloudinary(filePath)
 
@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
 
         //  console.log("Image urls", imageUrls);
          
-          let res = await prisma.mentor.create({
+          const res = await prisma.mentor.create({
               data: {
                   userId: userExists?.id,
                   name: result.data.name,
@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
           success: true,
-          message: "Mentor form Submitted Successfully",
+          message: "Form Submitted Successfully",
           Data: res,     
           },
         { status: 201 }

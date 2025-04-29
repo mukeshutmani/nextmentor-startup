@@ -1,8 +1,5 @@
 import { z }from 'zod'
 
-
-
-
 export const MentorFormSchema = z.object({
     
     name: z.string(),
