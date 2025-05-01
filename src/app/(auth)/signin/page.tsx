@@ -10,7 +10,7 @@ const page = () => {
          {
             redirect: false,
             email: "kumarmukesh789123@gmail.com",
-            password:"123456789"
+            password:"123456"
          }
         )
         console.log("Success",result);
