@@ -4,6 +4,8 @@ import { SaveFilesLocally } from "@/utils/saveFileLocally";
 import { LearnerSchema } from "@/validators/learner-zod";
 import { NextRequest, NextResponse } from "next/server";
 import fs from 'fs'
+import path from "path";
+
 
 function formDataToObject(formData: FormData): Record < string, any > {
        const data: Record<string, any> = {}
@@ -20,6 +22,7 @@ function formDataToObject(formData: FormData): Record < string, any > {
       return data
 }
 
+path.join(process.cwd(), './uploads')
 
 export async function POST(req: NextRequest) {
 
@@ -104,7 +107,12 @@ export async function POST(req: NextRequest) {
         }
       })
 
-      if(!learnerData) return console.log("Learner is not created");
+    if(!learnerData) return console.log("Learner is not created");
+
+    // await prisma.user.update({
+    //   where: {email},
+    //   data: {role: "LEARNER"}
+    // })
       
     return NextResponse.json({
           success: true,

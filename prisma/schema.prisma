@@ -13,6 +13,7 @@ datasource db {
 
 
 
+
 model User {
 
   id         String    @id @default(uuid())
@@ -23,10 +24,10 @@ model User {
   isVerified Boolean   @default(false)
   otpCode    Int?
   otpExpiry  DateTime?
-  role       Role?      @default(LEARNER)
+  role       Role?     @default(USER)
   status    Status?    @default(PENDING)
   image      String?    @db.VarChar(255)
-
+  
   
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -40,12 +41,13 @@ model User {
 
 }
 
-
-
-enum Role {
+ enum Role {
     MENTOR
     LEARNER
+    USER
   }
+
+
 
   enum Status {
      PENDING

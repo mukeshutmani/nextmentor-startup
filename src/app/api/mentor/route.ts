@@ -51,6 +51,13 @@ export async function POST(req: NextRequest) {
               })
         }
 
+        const formExists = await prisma.mentor.findFirst({where: {email}}) 
+        if(formExists ){
+           return NextResponse.json({
+               message: "form already sibmitted with given email"
+           })
+        }
+      
         
         const files = []
         const idCard = formData.get("idcardUrl") as File;
@@ -84,11 +91,6 @@ export async function POST(req: NextRequest) {
         }
 
 
-
-
-
-
-
         //  console.log("Image urls", imageUrls);
          
           const res = await prisma.mentor.create({
@@ -113,7 +115,12 @@ export async function POST(req: NextRequest) {
         })
 
 
-        if(!res) return console.log("Mentor is not created");
+       if(!res) return console.log("Mentor is not created");
+
+      //  await prisma.user.update({
+      //     where: {email},
+      //     data: {role: "MENTOR"}
+      //   })
 
         return NextResponse.json({
           success: true,
