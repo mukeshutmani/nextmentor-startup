@@ -109,10 +109,6 @@ export const authOptions:NextAuthOptions = {
         
             
         }),
-
-
-
-
     ],
 
     callbacks: {

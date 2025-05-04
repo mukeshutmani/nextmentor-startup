@@ -109,10 +109,10 @@ export async function POST(req: NextRequest) {
 
     if(!learnerData) return console.log("Learner is not created");
 
-    // await prisma.user.update({
-    //   where: {email},
-    //   data: {role: "LEARNER"}
-    // })
+    await prisma.user.update({
+      where: {email},
+      data: {role: "LEARNER"}
+    })
       
     return NextResponse.json({
           success: true,

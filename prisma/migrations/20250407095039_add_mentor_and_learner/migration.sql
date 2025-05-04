@@ -5,7 +5,7 @@
 
 */
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('MENTOR', 'LEARNER');
+CREATE TYPE "Role" AS ENUM ('MENTOR', 'LEARNER','USER');
 
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');

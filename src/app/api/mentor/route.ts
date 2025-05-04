@@ -48,14 +48,18 @@ export async function POST(req: NextRequest) {
         if(!userExists){
               return NextResponse.json({
                 message: "user not found with this email please try again with your login email! "
-              })
+              },
+              {status: 404}
+            )
         }
 
         const formExists = await prisma.mentor.findFirst({where: {email}}) 
         if(formExists ){
            return NextResponse.json({
                message: "form already sibmitted with given email"
-           })
+           },
+           {status: 409}
+          )
         }
       
         
@@ -117,10 +121,10 @@ export async function POST(req: NextRequest) {
 
        if(!res) return console.log("Mentor is not created");
 
-      //  await prisma.user.update({
-      //     where: {email},
-      //     data: {role: "MENTOR"}
-      //   })
+       await prisma.user.update({
+          where: {email},
+          data: {role: "MENTOR"}
+        })
 
         return NextResponse.json({
           success: true,
