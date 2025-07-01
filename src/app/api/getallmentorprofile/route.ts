@@ -1,14 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/options";
 
 
 export async function GET(req: NextRequest) {
        try {
 
-       const session = await getServerSession();
+       const session = await getServerSession(authOptions);
+       
 
-       if(!session?.user) {
+       if(!session) {
         return NextResponse.json(
            { error: "unauthorized" },
            {status: 401}
@@ -20,7 +22,7 @@ export async function GET(req: NextRequest) {
       const page = Math.max(1, parseInt(searchParams.get("page") || "1"))
       const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") || "10")))
       const skip = (page - 1) * limit
-
+      
 
       const [mentors, total] = await Promise.all([
          prisma.mentor.findMany({
