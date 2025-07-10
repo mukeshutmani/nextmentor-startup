@@ -18,11 +18,11 @@ export default function TrustedBy() {
      <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto text-center mb-10">
            <h2 className="text-3xl font-bold text-gray-800">
-              Trusted by Top Universities & companies
+              Students Of Top Universities & Companies 
            </h2>
-           <p className=" text-gray-500 mt-2">
+           {/* <p className=" text-gray-500 mt-2">
             Across the world & especially in Pakistan
-           </p>
+           </p> */}
         </div>
 
         <div className="overflow-hidden">

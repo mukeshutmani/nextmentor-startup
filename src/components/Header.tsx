@@ -58,7 +58,7 @@ export default function Header() {
                     <h1 className="text-white text-xl">NEXT→MENTOR</h1>
                 </Link>
 
-                <nav className=" hidden md:flex items-center space-x-6   ">
+                <nav className=" hidden md:flex items-center space-x-2   ">
                   {navLinks.map((link) => (
                     <Link
                     key={link.name}
@@ -72,7 +72,7 @@ export default function Header() {
                   {session?.user && (
                     <button
                     onClick={() => signOut()}
-                    className="ml-4 mr-4 px-3 py-1 bg-red-600 text-white font-semibold rounded
+                    className="ml-2 mr-3 px-3 py-1 bg-red-600 text-white font-semibold rounded
                      hover:bg-red-700 cursor-pointer"
 
                     > Logout </button>
