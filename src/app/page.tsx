@@ -1,10 +1,12 @@
-import Image from "next/image";
+import HeroSection from "@/components/HeroSection";
+import TrustedBy from "@/components/TrustedBy";
+
 
 export default function Home() {
   return (
-    <div >
-      <>Next mentor</>
-
-    </div>
+    <main>
+      <HeroSection />
+      <TrustedBy />
+    </main>
   );
 }

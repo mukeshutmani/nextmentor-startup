@@ -1,6 +1,5 @@
 'use client'
 import { signOut, useSession } from "next-auth/react"
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react"
 import {X, Menu} from "lucide-react"
@@ -48,7 +47,7 @@ export default function Header() {
  
 
   return (
-    <header className=" bg-gray-900 shadow-md sticky top-0 z-50 w-full">
+    <header className=" bg-gray-900 shadow-md sticky top-0 z-50 w-full ">
            <div className=" max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <Link href='/' className="flex items-center space-x-2">
                     {/* <Image 
@@ -73,8 +72,8 @@ export default function Header() {
                   {session?.user && (
                     <button
                     onClick={() => signOut()}
-                    className="ml-4 mr-4 px-3 py-1 bg-purple-600 text-white font-semibold rounded
-                     hover:bg-purple-500 cursor-pointer"
+                    className="ml-4 mr-4 px-3 py-1 bg-red-600 text-white font-semibold rounded
+                     hover:bg-red-700 cursor-pointer"
 
                     > Logout </button>
                   )}
