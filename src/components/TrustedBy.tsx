@@ -15,7 +15,7 @@ export default function TrustedBy() {
     ]
 
   return (
-     <section className="py-16 bg-gray-100">
+     <section className="py-10 bg-gray-100">
         <div className="max-w-7xl mx-auto text-center mb-10">
            <h2 className="text-3xl font-bold text-gray-800">
               Students Of Top Universities & Companies 

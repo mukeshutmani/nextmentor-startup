@@ -55,11 +55,11 @@ export default function Header() {
                     alt="Logo"
                     width={120} height={60}
                     /> */}
-                    <h1 className="text-white text-xl">NEXT→MENTOR</h1>
+                    <h1 className="text-white text-xl">⫻ NextMentor</h1>
                 </Link>
 
                 <nav className=" hidden md:flex items-center space-x-2   ">
-                  {navLinks.map((link) => (
+q                  {navLinks.map((link) => (
                     <Link
                     key={link.name}
                     href={link.href}

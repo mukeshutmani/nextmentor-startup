@@ -1,8 +1,17 @@
+'use client'
+
 import Link from "next/link";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
+import { useState } from "react";
+import SearchOverlay from "./SearchOverlay";
+
 
 export default function HeroSection() {
+
+    const [showSearch, setShowSearch] = useState(false);
+
   return (
+    <>
     <section className="relative bg-cover bg-center py-24 px-6 text-white  " style={{ backgroundImage:"url('https://images.pexels.com/photos/5011647/pexels-photo-5011647.jpeg')" }}>
         <div className=" absolute inset-0 bg-black opacity-50">
           
@@ -68,12 +77,12 @@ export default function HeroSection() {
                </p>
 
                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-                  <Link
-                  href='/mentors'
+                  <button
+                  onClick={() => setShowSearch(true)}
                   className="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-full font-semibold"
                   >
                     🔍 Explore Mentors
-                  </Link>
+                  </button>
                   <Link
                   href='/signup'
                   className="border border-white hover:bg-white hover:text-black transition px-6 py-3 rounded-full font-semibold"
@@ -92,5 +101,8 @@ export default function HeroSection() {
             </div>
         </div>
     </section>
+    
+    {showSearch && <SearchOverlay onClose={() => setShowSearch(false)} />}
+    </>
   )
 }
