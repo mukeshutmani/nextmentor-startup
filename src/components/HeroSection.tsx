@@ -18,7 +18,7 @@ export default function HeroSection() {
            </div>
 
          
-            <div className="flex justify-center items-center flex-col mb-10 gap-2">
+            <div className="flex justify-center items-center flex-col mb-6  gap-2">
              <AnimatedTooltip
                  items={ 
                      [
@@ -79,13 +79,13 @@ export default function HeroSection() {
                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
                   <button
                   onClick={() => setShowSearch(true)}
-                  className="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-full font-semibold"
+                  className="bg-orange-600 hover:bg-orange-700 duration-300 transition px-6 py-3 rounded-full font-semibold cursor-pointer"
                   >
                     🔍 Explore Mentors
                   </button>
                   <Link
                   href='/signup'
-                  className="border border-white hover:bg-white hover:text-black transition px-6 py-3 rounded-full font-semibold"
+                  className="border border-white hover:bg-white hover:text-black transition px-6 py-3 rounded-full font-semibold duration-300"
                   >
                    🚀 Get Started
                   </Link>

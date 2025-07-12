@@ -72,8 +72,8 @@ q                  {navLinks.map((link) => (
                   {session?.user && (
                     <button
                     onClick={() => signOut()}
-                    className="ml-2 mr-3 px-3 py-1 bg-red-600 text-white font-semibold rounded
-                     hover:bg-red-700 cursor-pointer"
+                    className="ml-2 mr-3 px-3 py-1 bg-orange-600 text-white font-semibold rounded
+                     hover:bg-orange-700 duration-300 cursor-pointer"
 
                     > Logout </button>
                   )}
