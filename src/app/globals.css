@@ -130,6 +130,10 @@
   .feedback-animation {
   animation: feedback 30s linear infinite;
   }
+
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
 }
 
 @keyframes marquee {
@@ -150,5 +154,31 @@
   to {
     transform: translateX(-50%);
   }
+}
+
+
+@keyframes scroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 10px;
+  /* height: 8px; */
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+      background: transparent;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #3a3b4cfa;
+  border-radius: 9px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 

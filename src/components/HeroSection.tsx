@@ -63,7 +63,7 @@ export default function HeroSection() {
               
              />
 
-             <h1 > Trusted by 5000+ students from 30+ countries</h1>
+             <h1 className="text-center" > Trusted by 5000+ students from 30+ countries</h1>
            </div>
 
             <div className="relative max-w-6xl mx-auto backdrop-blur-md bg-white/10 border border-white/20 rounded-xl shadow-lg p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10">
@@ -92,7 +92,7 @@ export default function HeroSection() {
                </div>
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 hover:scale-105 transition duration-1000">
                 <img 
                 src="https://images.pexels.com/photos/5877661/pexels-photo-5877661.jpeg" 
                 alt="Mentorship"
