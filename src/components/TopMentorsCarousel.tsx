@@ -34,7 +34,7 @@ export default function TopMentorsCarousel() {
   return (
     <section className=" py-20 bg-white">
        <div className="max-w-7xl mx-auto ">
-         <h2 className="text-3xl font-bold text-gray-800 text-center mb-4">
+         <h2 className="text-3xl md:text-5xl font-bold text-gray-800 text-center mb-4">
             Our Top Mentors
          </h2>
          <p className="  text-gray-500 text-center px-4">

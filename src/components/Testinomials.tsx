@@ -1,6 +1,8 @@
 "use client";
 
+import { GraduationCap } from "lucide-react";
 import Image from "next/image";
+import TooltipIcon from "./ui/TooltipIcon";
 
 const reviews = [
   {
@@ -33,21 +35,21 @@ const reviews = [
 export default function TestimonialsWall() {
   return (
     <section className="py-20 bg-gray-900 text-white">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-6"> Do not believe us.
-Believe them ↷</h2>
-        <p className="text-gray-300 mb-10 max-w-xl mx-auto text-sm">
-          These reviews are shared by real users who have grown with NextMentor.
-        </p>
+  <div className="max-w-4xl mx-auto px-6 text-center">
+    <h2 className="text-3xl md:text-5xl font-bold mb-6">Do not believe us. <br />Believe them ↷</h2>
+    <p className="text-gray-300 mb-10 max-w-xl mx-auto ">
+      These reviews are shared by real users who have grown with NextMentor.
+    </p>
 
-        {/* Scrollable vertical card container */}
-        <div className="scrollbar-custom max-h-[550px] overflow-y-auto snap-y snap-mandatory space-y-4 px-5 py-5 scroll-smooth border-1 border-gray-400 rounded-lg ">
-          {reviews.map((r, i) => (
-            <div
-              key={i}
-              className="snap-start bg-gray-700 rounded-xl shadow-md p-6 flex gap-4 "
-            >
-            
+    {/* Scrollable vertical card container */}
+    <div className="scrollbar-custom max-h-[550px] overflow-y-auto snap-y snap-mandatory space-y-4 px-5 py-5 scroll-smooth border border-gray-400 rounded-lg ">
+      {reviews.map((r, i) => (
+        <div
+          key={i}
+          className="snap-start bg-gray-700 rounded-xl shadow-md p-6 flex flex-col gap-3"
+        >
+          {/* Top: Image + Name */}
+          <div className="flex items-center gap-2">
             <div className="w-10 h-10 relative rounded-full overflow-hidden shrink-0">
               <Image
                 src={r.image}
@@ -56,18 +58,19 @@ Believe them ↷</h2>
                 className="object-cover"
               />
             </div>
-        
-              <div className="text-left">
-                <p className="mt-2  font-semibold text-sm text-gray-50">{r.name}</p>
-                <p className=" text-gray-200 ">{r.review}</p>
-              </div>
-              
+            <p className="font-semibold text-sm text-gray-50">{r.name} </p>
+            <span className="relative right-1 top-1">
+              <TooltipIcon Icon={GraduationCap} label="Learner"/>
 
-              
-            </div>
-          ))}
+            </span>
+            
+          </div>
+          <p className="text-gray-200 border border-gray-500 rounded-sm p-2 text-sm leading-relaxed text-start">{r.review}</p>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </div>
+</section>
+
   );
 }

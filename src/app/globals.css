@@ -134,6 +134,10 @@
   .animate-scroll {
     animation: scroll 30s linear infinite;
   }
+
+  .fadeIn {
+   animation: fadeIn 0.8s ease-in-out;
+  }
 }
 
 @keyframes marquee {
@@ -181,4 +185,23 @@
   border: 2px solid transparent;
   background-clip: content-box;
 }
+
+
+
+
+/* animation: {
+      fadeIn: 'fadeIn 0.8s ease-in-out',
+    },
+    keyframes: {
+      fadeIn: {
+        from: { opacity: '0', transform: 'translateY(20px)' },
+        to: { opacity: '1', transform: 'translateY(0)' },
+      }, */
+
+  @keyframes fadeIn {
+     from { opacity: 0; transform:  translateX(20px);}
+  to {
+   opacity: 1; transform:  translateY(0);
+  }
+  }
 

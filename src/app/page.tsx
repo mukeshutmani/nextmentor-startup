@@ -1,7 +1,7 @@
+import FaqAccordion from "@/components/FaqAccordion";
 import HeroSection from "@/components/HeroSection";
 import MentorConnectSection from "@/components/MentorConnectSection";
 import TestimonialsWall from "@/components/Testinomials";
-import TopMentors from "@/components/TopMentors";
 import TopMentorsCarousel from "@/components/TopMentorsCarousel";
 import TrustedBy from "@/components/TrustedBy";
 import WhyChoseSection from "@/components/WhyChoseSection";
@@ -15,9 +15,8 @@ export default function Home() {
       <WhyChoseSection />
       <TopMentorsCarousel />
       <MentorConnectSection />
-      <TopMentors />
       <TestimonialsWall />
-      
+      <FaqAccordion />
     </main>
   );
 }
